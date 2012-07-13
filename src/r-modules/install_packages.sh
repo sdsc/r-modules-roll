@@ -56,6 +56,7 @@ localPackages <- c(
   'geepack',
   'GenABEL',
   'genetics',
+  'ggplot2',
   'GWAF',
   'haplo.stats',
   'hexbin',

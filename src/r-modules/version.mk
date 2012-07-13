@@ -1,2 +1,2 @@
 NAME = r-modules_$(ROLLNETWORK)_$(ROLLMPI)
-RELEASE = 1
+RELEASE = 2
