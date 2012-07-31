@@ -85,6 +85,7 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/local/lib
 	mkdir -p $(PKGROOT)/local/lib
+        export LD_LIBRARY_PATH=/opt/netcdf/4.2/gnu/lib
 	if test -r install_packages.sh; then \
           $(MPISETUP); \
  	  if test -z "$${MPI_HOME}"; then \

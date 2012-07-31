@@ -79,6 +79,7 @@ localPackages <- c(
   'modeltools',
   'multcomp',
   'multicore',
+  'ncdf4',
   'network',
   'nlme',
   'numDeriv',
