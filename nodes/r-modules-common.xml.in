@@ -14,7 +14,6 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 <changelog>
 </changelog>
 
-<package>r-modules_ROLLNETWORK_ROLLMPI</package>
-
+<package>r-modules_ROLLMPI_ROLLNETWORK</package>
 
 </kickstart>
