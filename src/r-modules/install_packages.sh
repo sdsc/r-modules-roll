@@ -66,6 +66,7 @@ localPackages <- c(
   'kernlab',
   'kinship',
   'lattice',
+  'ldlasso',
   'leaps',
   'lme4',
   'logspline',
@@ -86,6 +87,7 @@ localPackages <- c(
   'nws',
   'oz',
   'PBSmodelling',
+  'PredictABEL',
   'pspline',
   'quadprog',
   'qvalue',
@@ -94,6 +96,7 @@ localPackages <- c(
   'RColorBrewer',
   'rgenoud',
   'rgl',
+  'rjags',
   'rmeta',
   'robustbase',
   'ROCR',
@@ -101,6 +104,7 @@ localPackages <- c(
   'scatterplot3d',
   'sem',
   'sgeostat',
+  'SimHap',
   'slam',
   'sna',
   'sp',
@@ -120,11 +124,10 @@ localPackages <- c(
 for (package in localPackages) {
   install.packages(package, lib="${R_LIBS}")
 }
+# One package not available via CRAN
+source("http://bioconductor.org/biocLite.R")
+biocLite("Biobase")
 END
 
 # These aren't available from CRAN
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib SimHap*gz
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib Biobase*gz
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib ldlasso_3.1.tar.gz
-${PKGROOT}/bin/R --vanilla CMD INSTALL --no-test-load  --no-clean-on-error -l ${PKGROOT}/local/lib PredictABEL_1.1.tar.gz
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib --configure-args='--with-jags-include=/opt/jags/include/JAGS --with-jags-lib=/opt/jags/lib' rjags_3-5.tar.gz
+#${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib Biobase*gz
