@@ -70,7 +70,8 @@ MPISETUP = \
     . /etc/profile.d/modules.sh; \
     module load gnu; \
     module load $(MPIMODULE); \
-    module load netcdf; \
+    echo "MODULE LIST"; \
+    echo `module list`; \
   fi; \
   export MPI_HOME=`which mpicxx | perl -pe 's!/bin/.*!!'`; \
   if test -z "$${MPI_HOME}"; then \
@@ -92,7 +93,7 @@ install::
  	      echo "build error: MPI_HOME not found"; \
  	      exit 2; \
  	  fi; \
- 	  bash install_packages.sh $(PKGROOT) $${MPI_HOME}; \
+ 	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI) $(ROLLNETWORK); \
  	fi
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local/lib
