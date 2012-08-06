@@ -96,8 +96,8 @@ install::
 	  fi; \
 	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI); \
 	fi
- 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
- 	rmdir $(PKGROOT)/local/lib
- 	rmdir $(PKGROOT)/local
+	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
+	rmdir $(PKGROOT)/local/lib
+	rmdir $(PKGROOT)/local
 
 clean::
