@@ -3,14 +3,11 @@
 
 PKGROOT=${1:-/opt/R}
 MPIROOT=${2}
-MPINAME=${3}
-MPINETWORK=${4}
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
 export R_LIBS=${PKGROOT}/local/lib
-export LD_LIBRARY_PATH=/opt/lapack/gnu/lib:/opt/jags/lib:/opt/netcdf/4.2/gnu/${MPINAME}/${MPINETWORK}:$LD_LIBRARY_PATH
-export PATH=/opt/netcdf/4.2/gnu/${MPINAME}/${MPINETWORK}/bin:$PATH
+export LD_LIBRARY_PATH=/opt/lapack/gnu/lib:/opt/jags/lib:$LD_LIBRARY_PATH
 mkdir -p ${R_LIBS}
 
 ${PKGROOT}/bin/R --vanilla << END
@@ -27,12 +24,18 @@ localPackages <- c(
   'rlecuyer'
 )
 for (package in localPackages) {
-  install.packages(package, configure.args=mpiConfig, lib="${R_LIBS}",INSTALL_opts="--no-clean-on-error")
+  install.packages(package, configure.args=mpiConfig, lib="${R_LIBS}", INSTALL_opts="--no-clean-on-error")
 }
-# tcltk2 load test hangs w/no DISPLAY env var
-install.packages('tcltk2', lib="${R_LIBS}", INSTALL_opts=c("--no-test-load"))
-install.packages('PBSmodelling', lib="${R_LIBS}", INSTALL_opts=c("--no-test-load"))
-install.packages('PredictABEL', lib="${R_LIBS}", INSTALL_opts=c("--no-test-load --no-clean-on-error"))
+# Some packages' load test hangs/fails w/no DISPLAY env var
+localPackages <- c(
+  'tcltk2',
+  'PBSmodelling',
+  'PredicatABEL',
+  'tkrplot'
+)
+for (package in localPackages) {
+  install.packages(package, lib="${R_LIBS}", INSTALL_opts=c("--no-test-load"))
+}
 # Other packages require no special handling
 localPackages <- c(
   'abind',
@@ -71,6 +74,7 @@ localPackages <- c(
   'kernlab',
   'kinship',
   'lattice',
+  'ldlasso',
   'leaps',
   'lme4',
   'logspline',
@@ -90,6 +94,7 @@ localPackages <- c(
   'numDeriv',
   'nws',
   'oz',
+  'PredictABEL',
   'pspline',
   'quadprog',
   'qvalue',
@@ -98,6 +103,7 @@ localPackages <- c(
   'RColorBrewer',
   'rgenoud',
   'rgl',
+  'rjags',
   'rmeta',
   'robustbase',
   'ROCR',
@@ -105,6 +111,7 @@ localPackages <- c(
   'scatterplot3d',
   'sem',
   'sgeostat',
+  'SimHap',
   'slam',
   'sna',
   'sp',
@@ -113,7 +120,6 @@ localPackages <- c(
   'survey',
   'timeDate',
   'tis',
-  'tkrplot',
   'tripack',
   'urca',
   'VGAM',
@@ -124,9 +130,7 @@ localPackages <- c(
 for (package in localPackages) {
   install.packages(package, lib="${R_LIBS}")
 }
+# One package not available via CRAN
+source("http://bioconductor.org/biocLite.R")
+biocLite("Biobase")
 END
-
-# These aren't available from CRAN
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib Biobase*gz
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib ldlasso_3.1.tar.gz
-${PKGROOT}/bin/R --vanilla CMD INSTALL -l ${PKGROOT}/local/lib --configure-args='--with-jags-include=/opt/jags/include/JAGS --with-jags-lib=/opt/jags/lib' rjags_3-5.tar.gz
