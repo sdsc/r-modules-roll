@@ -2,7 +2,6 @@
 # as arguments.
 
 PKGROOT=${1:-/opt/R}
-MPIROOT=${2}
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
@@ -15,17 +14,6 @@ ${PKGROOT}/bin/R --vanilla << END
 repos <- getOption("repos")
 repos["CRAN"] = "${CRANURL}"
 options(repos = repos)
-# MPI packages require some configuration arguments
-mpiConfig <- c(
-  "--with-mpi=${MPIROOT}"
-)
-localPackages <- c(
-  'Rmpi',
-  'rlecuyer'
-)
-for (package in localPackages) {
-  install.packages(package, configure.args=mpiConfig, lib="${R_LIBS}", INSTALL_opts="--no-clean-on-error")
-}
 # Some packages' load test hangs/fails w/no DISPLAY env var
 localPackages <- c(
   'tcltk2',
@@ -88,7 +76,6 @@ localPackages <- c(
   'modeltools',
   'multcomp',
   'multicore',
-  'ncdf4',
   'network',
   'nlme',
   'numDeriv',

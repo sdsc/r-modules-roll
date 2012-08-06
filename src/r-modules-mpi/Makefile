@@ -59,6 +59,29 @@ PKGROOT=/opt/R
 
 -include $(ROCKSROOT)/etc/Rules.mk
 
+ifeq ("$(ROLLNETWORK)", "eth")
+  MPIMODULE = $(ROLLMPI)
+else
+  MPIMODULE = $(ROLLMPI)_$(ROLLNETWORK)
+endif
+
+MPISETUP = \
+  if test -e /etc/profile.d/modules.sh; then \
+    . /etc/profile.d/modules.sh; \
+    module load gnu; \
+    module load $(MPIMODULE); \
+    module load netcdf; \
+    echo "MODULE LIST"; \
+    echo `module list`; \
+  fi; \
+  export MPI_HOME=`which mpicxx | perl -pe 's!/bin/.*!!'`; \
+  if test -z "$${MPI_HOME}"; then \
+    export MPI_HOME=/opt/$(ROLLMPI); \
+  fi; \
+  echo Using MPI from $${MPI_HOME}; \
+  export PATH=$${PATH}:$${MPI_HOME}/bin; \
+  export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:$${MPI_HOME}/lib
+
 
 build:
 
@@ -66,10 +89,15 @@ install::
 	mkdir -p $(ROOT)/$(PKGROOT)/local/lib
 	mkdir -p $(PKGROOT)/local/lib
 	if test -r install_packages.sh; then \
-	  bash install_packages.sh $(PKGROOT); \
+	  $(MPISETUP); \
+	  if test -z "$${MPI_HOME}"; then \
+	    echo "build error: MPI_HOME not found"; \
+	    exit 2; \
+	  fi; \
+	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI); \
 	fi
-	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
-	rmdir $(PKGROOT)/local/lib
-	rmdir $(PKGROOT)/local
+ 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
+ 	rmdir $(PKGROOT)/local/lib
+ 	rmdir $(PKGROOT)/local
 
 clean::
