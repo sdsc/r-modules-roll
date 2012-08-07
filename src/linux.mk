@@ -56,4 +56,6 @@
 
 SRCDIRS = `find . -maxdepth 1 -type d \
 	-not -name CVS \
-	-not -name .`
+	-not -name r-modules \
+	-not -name r-modules-mpi \
+	-not -name .` r-modules r-module-mpi
