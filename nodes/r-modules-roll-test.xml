@@ -1,0 +1,145 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+<description>
+r-modules roll installation test.
+</description>
+
+<copyright>
+Copyright (c) 2000 - 2011 The Regents of the University of California.
+All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
+</copyright>
+
+<changelog>
+</changelog>
+
+<post>
+
+/bin/mkdir -m 0755 /root/rolltests
+
+<file name="/root/rolltests/r-modules.t" perms="0755">
+<![CDATA[#!/usr/bin/perl -w
+# r-modules roll installation test.  Usage:
+# r-modules.t [nodetype]
+#   where nodetype is one of "Compute", "Dbnode", "Frontend" or "Login"
+#   if not specified, the test assumes either Compute or Frontend
+
+use Test::More qw(no_plan);
+
+my $appliance = $#ARGV >= 0 ? $ARGV[0] :
+                -d '/export/rocks/install' ? 'Frontend' : 'Compute';
+my $isCompute = $appliance eq 'Compute';
+my $isFe = $appliance eq 'Frontend';
+my $isLogin = $appliance eq 'Login';
+my $modulecmd = `find /opt/modules -name modulecmd 2>&1`;
+chomp($modulecmd);
+my $output;
+
+SKIP: {
+  my @RMODULES = (
+    'tcltk2',
+    'PBSmodelling',
+    'PredicatABEL',
+    'tkrplot',
+    'abind',
+    'akima',
+    'alr3',
+    'bdsmatrix',
+    'bitops',
+    'car',
+    'colorspace',
+    'combinat',
+    'CompetingRiskFrailty',
+    'cubature',
+    'DatABEL',
+    'DBI',
+    'degreenet',
+    'e1071',
+    'Ecdat',
+    'ellipse',
+    'epitools',
+    'fEcofin',
+    'Formula',
+    'fts',
+    'fUtilities',
+    'gap',
+    'gee',
+    'geepack',
+    'GenABEL',
+    'genetics',
+    'ggplot2',
+    'GWAF',
+    'haplo.stats',
+    'hexbin',
+    'Hmisc',
+    'ineq',
+    'iterators',
+    'kernlab',
+    'kinship',
+    'lattice',
+    'ldlasso',
+    'leaps',
+    'lme4',
+    'logspline',
+    'maps',
+    'mboost',
+    'mclust',
+    'MCMCpack',
+    'miscTools',
+    'mix',
+    'mlbench',
+    'modeltools',
+    'multcomp',
+    'multicore',
+    'network',
+    'nlme',
+    'numDeriv',
+    'nws',
+    'oz',
+    'PredictABEL',
+    'pspline',
+    'quadprog',
+    'qvalue',
+    'randomForest',
+    'rattle',
+    'RColorBrewer',
+    'rgenoud',
+    'rgl',
+    'rjags',
+    'rmeta',
+    'robustbase',
+    'ROCR',
+    'RUnit',
+    'scatterplot3d',
+    'sem',
+    'sgeostat',
+    'SimHap',
+    'slam',
+    'sna',
+    'sp',
+    'SparseM',
+    'statmod',
+    'survey',
+    'timeDate',
+    'tis',
+    'tripack',
+    'urca',
+    'VGAM',
+    'xtable',
+    'zoo',
+    'Biobase',
+  );
+  skip 'R not installed', int(@RMODULES) + 1 if ! -d '/opt/R';
+  $ENV{'R_LIBS'} = '/opt/R/local/lib';
+  ok(-d $ENV{'R_LIBS'}, 'R library created');
+  $output = `echo 'library()' | /opt/R/bin/R --vanilla`;
+  foreach my $module(@RMODULES) {
+    ok($output =~ /$module/, "$module R module installed");
+  }
+}
+</file>
+
+</post>
+
+</kickstart> 
