@@ -4,10 +4,11 @@
 PKGROOT=${1:-/opt/R}
 MPIROOT=${2}
 ROLLMPI=${3}
+ROLLNETWORK=${4}
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
-export R_LIBS=${PKGROOT}/local/lib/${ROLLMPI}
+export R_LIBS=${PKGROOT}/local/lib/${ROLLMPI}/${ROLLNETWORK}
 mkdir -p ${R_LIBS}
 
 ${PKGROOT}/bin/R --vanilla << END

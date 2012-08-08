@@ -94,7 +94,7 @@ install::
 	    echo "build error: MPI_HOME not found"; \
 	    exit 2; \
 	  fi; \
-	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI); \
+	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI) $(ROLLNETWORK); \
 	fi
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local/lib
