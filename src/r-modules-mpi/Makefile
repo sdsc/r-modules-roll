@@ -87,7 +87,7 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/local/lib/mpi/$(ROLLMPI)/$(ROLLNETWORK)
-	mkdir -p $(PKGROOT)/local/lib/mpi/$(ROLLMPI/$(ROLLNETWORK)
+	mkdir -p $(PKGROOT)/local/lib/mpi/$(ROLLMPI)/$(ROLLNETWORK)
 	if test -r install_packages.sh; then \
 	  $(MPISETUP); \
 	  if test -z "$${MPI_HOME}"; then \
@@ -96,7 +96,10 @@ install::
 	  fi; \
 	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI) $(ROLLNETWORK); \
 	fi
-	mv $(PKGROOT)/local/lib/mpi/* $(ROOT)/$(PKGROOT)/local/mpi
+	mv $(PKGROOT)/local/lib/mpi/* $(ROOT)/$(PKGROOT)/local/lib/mpi
+	rmdir $(PKGROOT)/local/lib/mpi/$(ROLLMPI)/$(ROLLNETWORK)
+	rmdir $(PKGROOT)/local/lib/mpi/$(ROLLMPI)
+	rmdir $(PKGROOT)/local/lib/mpi
 	rmdir $(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local
 
