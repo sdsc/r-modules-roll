@@ -1,2 +1,2 @@
-NAME = r-modules_$(ROLLMPI)_$(ROLLNETWORK)
+NAME = r-modules-mpi_$(ROLLMPI)_$(ROLLNETWORK)
 RELEASE = 4
