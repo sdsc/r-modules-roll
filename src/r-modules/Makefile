@@ -68,6 +68,7 @@ install::
 	if test -r install_packages.sh; then \
 	  bash install_packages.sh $(PKGROOT); \
 	fi
+	rm -rf  $(PKGROOT)/local/lib/00LOCK*
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local
