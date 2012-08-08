@@ -86,8 +86,8 @@ MPISETUP = \
 build:
 
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)/local/lib
-	mkdir -p $(PKGROOT)/local/lib
+	mkdir -p $(ROOT)/$(PKGROOT)/local/lib/mpi/$(ROLLMPI)/$(ROLLNETWORK)
+	mkdir -p $(PKGROOT)/local/lib/mpi/$(ROLLMPI/$(ROLLNETWORK)
 	if test -r install_packages.sh; then \
 	  $(MPISETUP); \
 	  if test -z "$${MPI_HOME}"; then \
