@@ -91,7 +91,7 @@ install::
 	if test -r install_packages.sh; then \
 	  $(MPISETUP); \
 	  if test -z "$${MPI_HOME}"; then \
-	    echo "build error: MPI_HOME not found"; \
+	    echo "Error: MPI_HOME not found"; \
 	    exit 2; \
 	  fi; \
 	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI) $(ROLLNETWORK); \
