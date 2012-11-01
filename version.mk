@@ -1,4 +1,4 @@
-ROLLNAME = r-modules$(ROLLSUFFIX)
+ROLLNAME = r-modules
 RELEASE  = 4
 COLOR    = orange
 
