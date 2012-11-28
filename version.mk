@@ -1,5 +1,5 @@
 ROLLNAME = r-modules
-RELEASE  = 0
+RELEASE  = 5
 COLOR    = orange
 
 REDHAT.ROOT = $(PWD)
