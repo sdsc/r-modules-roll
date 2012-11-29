@@ -16,7 +16,6 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 
 <package>r-modules-mpi_ROLLMPI_ROLLNETWORK</package>
 <package>r-modules</package>
-<package>protobuf</package>
 <package>r-modules-roll-test</package>
 
 </kickstart>
