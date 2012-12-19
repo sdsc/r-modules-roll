@@ -69,6 +69,9 @@ MPISETUP = \
   if test -e /etc/profile.d/modules.sh; then \
     . /etc/profile.d/modules.sh; \
     module load gnu; \
+    module load openmpi_$(ROLLNETWORK)
+    export OPENMPI_HOME=`which mpicxx | perl -pe 's!/bin/.*!!'`; \
+    module unload openmpi_$(ROLLNETWORK)
     module load $(MPIMODULE); \
     module load netcdf; \
     echo "MODULE LIST"; \
@@ -88,13 +91,14 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/local/lib/mpi/$(ROLLMPI)/$(ROLLNETWORK)
 	mkdir -p $(PKGROOT)/local/lib/mpi/$(ROLLMPI)/$(ROLLNETWORK)
+	mkdir -p $(PKGROOT)/local/lib/mpi/openmpi/$(ROLLNETWORK)
 	if test -r install_packages.sh; then \
 	  $(MPISETUP); \
 	  if test -z "$${MPI_HOME}"; then \
 	    echo "Error: MPI_HOME not found"; \
 	    exit 2; \
 	  fi; \
-	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI) $(ROLLNETWORK); \
+	  bash install_packages.sh $(PKGROOT) $${MPI_HOME} $(ROLLMPI) $${OPENMPI_HOME} ; \
 	fi
 	cp -r  $(PKGROOT)/local/lib/mpi/* $(ROOT)/$(PKGROOT)/local/lib/mpi
 	rm -rf  $(PKGROOT)/local/lib/mpi/*
