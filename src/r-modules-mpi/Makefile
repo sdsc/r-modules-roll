@@ -69,9 +69,9 @@ MPISETUP = \
   if test -e /etc/profile.d/modules.sh; then \
     . /etc/profile.d/modules.sh; \
     module load gnu; \
-    module load openmpi_$(ROLLNETWORK)
+    module load openmpi_$(ROLLNETWORK); \
     export OPENMPI_HOME=`which mpicxx | perl -pe 's!/bin/.*!!'`; \
-    module unload openmpi_$(ROLLNETWORK)
+    module unload openmpi_$(ROLLNETWORK); \
     module load $(MPIMODULE); \
     module load netcdf; \
     echo "MODULE LIST"; \
