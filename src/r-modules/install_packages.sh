@@ -15,6 +15,7 @@ repos["CRAN"] = "${CRANURL}"
 options(repos = repos)
 # Some packages' load test hangs/fails w/no DISPLAY env var
 localPackages <- c(
+  'GenABEL',
   'tcltk2',
   'PBSmodelling',
   'PredictABEL',
@@ -36,7 +37,6 @@ localPackages <- c(
   'cubature',
   'DatABEL',
   'DBI',
-  'degreenet',
   'doMC',
   'e1071',
   'Ecdat',
@@ -48,7 +48,6 @@ localPackages <- c(
   'gap',
   'gee',
   'geepack',
-  'GenABEL',
   'genetics',
   'ggplot2',
   'GWAF',

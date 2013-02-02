@@ -32,7 +32,6 @@ SKIP: {
   'cubature',
   'DatABEL',
   'DBI',
-  'degreenet',
   'doMC',
   'e1071',
   'Ecdat',
