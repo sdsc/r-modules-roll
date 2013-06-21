@@ -2,11 +2,17 @@
 # as arguments.
 
 PKGROOT=${1:-/opt/R}
+PATCHPATH=${2}
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
 export R_LIBS=${PKGROOT}/local/lib
 mkdir -p ${R_LIBS}
+
+. /etc/profile/modules.sh
+module load gdal
+module load geos
+module load proj
 
 ${PKGROOT}/bin/R --vanilla << END
 # Specify where to pull package source from
@@ -24,6 +30,19 @@ localPackages <- c(
 for (package in localPackages) {
   install.packages(package, lib="${R_LIBS}", INSTALL_opts=c("--no-test-load"))
 }
+
+
+# biocLite can't be installed from cran
+source("http://bioconductor.org/biocLite.R")
+biocLite()
+
+Sys.setenv(CPPFLAGS="-I /opt/proj/include")
+Sys.setenv(LDFLAGS="-L /opt/proj/lib")
+Sys.setenv(PKG_CPPFLAGS="-I /opt/proj/include")
+Sys.setenv(PKG_LDFLAGS="-L /opt/proj/lib")
+path<-Sys.getenv("LD_LIBRARY_PATH")
+path<-paste("/opt/proj/lib:",path,sep="")
+Sys.setenv(LD_LIBRARY_PATH=path)
 # Other packages require no special handling
 localPackages <- c(
   'abind',
@@ -93,7 +112,6 @@ localPackages <- c(
   'rattle',
   'RColorBrewer',
   'RCurl',
-  'rgdal',
   'rgenoud',
   'rgeos',
   'rgl',
@@ -126,7 +144,6 @@ localPackages <- c(
 for (package in localPackages) {
   install.packages(package, lib="${R_LIBS}")
 }
-# One package not available via CRAN
-source("http://bioconductor.org/biocLite.R")
-biocLite("Biobase")
 END
+# for whatever reason when rgdal is installed, it cant find /opt/proj files, so I hacked the configure script
+/opt/R/bin/R CMD INSTALL ${PATCHPATH}/rgdal_0.8-9.tar.gz -l /opt/R/local/lib 
