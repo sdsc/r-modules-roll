@@ -9,7 +9,7 @@ yum -y install curl-devel
 export R_LIBS=${PKGROOT}/local/lib
 mkdir -p ${R_LIBS}
 
-. /etc/profile/modules.sh
+. /etc/profile.d/modules.sh
 module load gdal
 module load geos
 module load proj
