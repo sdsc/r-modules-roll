@@ -10,6 +10,7 @@ export R_LIBS=${PKGROOT}/local/lib
 mkdir -p ${R_LIBS}
 
 . /etc/profile.d/modules.sh
+module load gnu
 module load gdal
 module load geos
 module load proj

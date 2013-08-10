@@ -6,6 +6,7 @@ MPIROOT=${2}
 ROLLMPI=${3}
 ROLLNETWORK=${4}
 CRANURL=http://cran.stat.ucla.edu
+module load gnu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
 export R_LIBS=${PKGROOT}/local/lib/mpi/${ROLLMPI}/${ROLLNETWORK}
