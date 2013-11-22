@@ -4,9 +4,10 @@
 # 
 # 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		           version 5.1  (VI)
+# 		         version 5.6 (Emerald Boa)
+# 		         version 6.1 (Emerald Boa)
 # 
-# Copyright (c) 2000 - 2011 The Regents of the University of California.
+# Copyright (c) 2000 - 2013 The Regents of the University of California.
 # All rights reserved.	
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -53,25 +54,30 @@
 # 
 # @Copyright@
 #
+# $Log$
 
-REDHAT.ROOT = $(PWD)/../../
-PKGROOT=/opt/R
+REDHAT.ROOT = $(CURDIR)/../../
 
 -include $(ROCKSROOT)/etc/Rules.mk
+include Rules.mk
+include pull.mk
 
-
-build:
-
+build: $(SRC_DIRS)
+	@echo "::: Package $(NAME) build complete :::"
+	
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/local/lib
 	mkdir -p $(PKGROOT)/local/lib
 	if test -r install_packages.sh; then \
-          export DISPLAY=`cat /tmp/.display`; \
+	  export DISPLAY=`cat /tmp/.display`; \
 	  bash install_packages.sh $(PKGROOT) $(REDHAT.ROOT)/src/r-modules/patch-files; \
 	fi
 	rm -rf  $(PKGROOT)/local/lib/00LOCK*
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local
+	@echo "::: Package $(NAME) install complete :::"
 
 clean::
+	rm -rf $(SOURCE_DIR)
+
