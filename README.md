@@ -11,6 +11,7 @@ appending the R module name to the following URL...
 
 [http://cran.r-project.org/web/packages](http://cran.r-project.org/web/packages)
 
+```
 abind       ellipse      iterators   modeltools    rgdal          sna     
 akima       epitools     kernlab     multcomp      rgenoud        sp      
 alr3        foreach      knitr       multicore     rgeos          spacetime
@@ -29,7 +30,7 @@ devtools    haplo.stats  MCMCpack    raster        sem            zoo
 doMC        hexbin       miscTools   rattle        sgeostat
 e1071       Hmisc        mix         RColorBrewer  SimHap  
 Ecdat       ineq         mlbench     RCurl         slam    
-
+```
 
 ## Requirements
 
