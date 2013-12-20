@@ -57,7 +57,9 @@
 #
 # $Log$
 #
-
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
 ifndef ROLLMPI
   ROLLMPI = openmpi
 endif
@@ -66,9 +68,11 @@ ifndef ROLLNETWORK
 endif
 
 -include $(ROLLSROOT)/etc/Rolls.mk
-include Rolls.mk
 
 default:
+# Copy and substitute lines of nodes/*.in that reference ROLLCOMPILER,
+# ROLLNETWORK, and/or ROLLMPI, making one copy for each
+# ROLLCOMPILER/ROLLNETWORK/ROLLMPI value
 	for i in `ls nodes/*.in`; do \
 	  export o=`echo $$i | sed 's/\.in//'`; \
 	  cp $$i $$o; \
@@ -80,17 +84,13 @@ default:
 	  done; \
 	  perl -pi -e '$$_ = "" if m/ROLL(COMPILER|NETWORK|MPI)/' $$o; \
 	done
-	$(MAKE) ROLLNETWORK="$(ROLLNETWORK)" ROLLMPI="$(ROLLMPI)" roll
+	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" ROLLNETWORK="$(ROLLNETWORK)" ROLLMPI="$(ROLLMPI)" roll
 
-clean::
-	rm -f _arch bootstrap.py
 
-cvsclean: clean
-	for i in `ls nodes/*.in`; do \
+distclean:: clean
+	-rm -f _arch build.log
+	-rm -rf RPMS SRPMS
+	-for i in `ls nodes/*.in`; do \
 	  export o=`echo $$i | sed 's/\.in//'`; \
 	  rm -f $$o; \
 	done
-	rm -fr RPMS SRPMS
-
-distclean:: cvsclean
-	-rm -f build.log
