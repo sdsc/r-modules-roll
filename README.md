@@ -52,6 +52,7 @@ The following Rocks rolls must be installed *before* attempting to build the r-m
 - [gdal-roll](https://github.com/sdsc/gdal-roll/)
 - [geos-roll](https://github.com/sdsc/geos-roll/)
 - [proj-roll](https://github.com/sdsc/proj-roll/)
+- [R-roll](https://github.com/sdsc/R-roll/)
 
 
 ## Building
