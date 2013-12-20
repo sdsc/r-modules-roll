@@ -9,8 +9,7 @@ For more information about the various packages included in the r-modules roll
 please visit their official web pages which can generally be reached by
 appending the R module name to the following URL...
 
-<a href="http://cran.r-project.org/web/packages"
-target="_blank">http://cran.r-project.org/web/packages</a>
+[http://cran.r-project.org/web/packages](http://cran.r-project.org/web/packages)
 
 ```
 abind       ellipse      iterators   modeltools    rgdal          sna     
