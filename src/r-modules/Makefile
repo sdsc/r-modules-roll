@@ -70,7 +70,7 @@ install::
 	mkdir -p $(PKGROOT)/local/lib
 	if test -r install_packages.sh; then \
 	  export DISPLAY=`cat /tmp/.display`; \
-	  bash install_packages.sh $(PKGROOT) $(REDHAT.ROOT)/src/r-modules/patch-files; \
+	  bash install_packages.sh $(PKGROOT); \
 	fi
 	rm -rf  $(PKGROOT)/local/lib/00LOCK*
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
@@ -79,5 +79,3 @@ install::
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
-	rm -rf $(SOURCE_DIR)
-

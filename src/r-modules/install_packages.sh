@@ -2,7 +2,6 @@
 # as arguments.
 
 PKGROOT=${1:-/opt/R}
-PATCHPATH=${2}
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
@@ -147,4 +146,4 @@ for (package in localPackages) {
 }
 END
 # for whatever reason when rgdal is installed, it cant find /opt/proj files, so I hacked the configure script
-/opt/R/bin/R CMD INSTALL ${PATCHPATH}/rgdal_0.8-9.tar.gz -l /opt/R/local/lib 
+/opt/R/bin/R CMD INSTALL rgdal_0.8-9.tar.gz -l /opt/R/local/lib 
