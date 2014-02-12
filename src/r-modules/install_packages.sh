@@ -2,6 +2,8 @@
 # as arguments.
 
 PKGROOT=${1:-/opt/R}
+RGDAL_VERSION=$2
+RJAGS_VERSION=$3
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
@@ -12,7 +14,9 @@ mkdir -p ${R_LIBS}
 module load gnu
 module load gdal
 module load geos
+module load jags
 module load proj
+module load lapack
 
 ${PKGROOT}/bin/R --vanilla << END
 # Specify where to pull package source from
@@ -35,6 +39,7 @@ for (package in localPackages) {
 # biocLite can't be installed from cran
 source("http://bioconductor.org/biocLite.R")
 biocLite()
+biocLite("Rgraphviz")
 
 Sys.setenv(CPPFLAGS="-I /opt/proj/include")
 Sys.setenv(LDFLAGS="-L /opt/proj/lib")
@@ -52,6 +57,7 @@ localPackages <- c(
   'base64enc',
   'bdsmatrix',
   'bitops',
+  'bnlearn',
   'car',
   'colorspace',
   'combinat',
@@ -145,5 +151,5 @@ for (package in localPackages) {
   install.packages(package, lib="${R_LIBS}")
 }
 END
-# for whatever reason when rgdal is installed, it cant find /opt/proj files, so I hacked the configure script
-/opt/R/bin/R CMD INSTALL rgdal_0.8-9.tar.gz -l /opt/R/local/lib 
+/opt/R/bin/R CMD INSTALL --configure-args='--with-gdal-config=/opt/gdal/bin/gdal-config --with-proj-include=/opt/proj/include --with-proj-lib=/opt/proj/lib' rgdal_${RGDAL_VERSION}.tar.gz -l /opt/R/local/lib 
+/opt/R/bin/R CMD INSTALL --configure-args='--with-jags-lib=/opt/jags/lib --with-jags-include=/opt/jags/include/JAGS' rjags_${RJAGS_VERSION}.tar.gz -l /opt/R/local/lib 

@@ -26,6 +26,7 @@ SKIP: {
   'alr3',
   'bdsmatrix',
   'bitops',
+  'bnlearn',
   'car',
   'colorspace',
   'combinat',
