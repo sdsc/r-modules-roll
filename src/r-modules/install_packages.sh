@@ -120,7 +120,6 @@ localPackages <- c(
   'RCurl',
   'rgenoud',
   'rgeos',
-  'rgl',
   'rjson',
   'rmeta',
   'robustbase',
