@@ -71,7 +71,7 @@ install::
 	mkdir -p $(PKGROOT)/local/lib
 	if test -r install_packages.sh; then \
 	  export DISPLAY=`cat /tmp/.display`; \
-	  bash install_packages.sh $(PKGROOT) $(RGDAL_VERSION) $(RJAGS_VERSION); \
+	  bash install_packages.sh $(PKGROOT); \
 	fi
 	rm -rf  $(PKGROOT)/local/lib/00LOCK*
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib

@@ -2,8 +2,6 @@
 # as arguments.
 
 PKGROOT=${1:-/opt/R}
-RGDAL_VERSION=$2
-RJAGS_VERSION=$3
 CRANURL=http://cran.stat.ucla.edu
 yum -y install curl-devel
 # R_LIBS might be needed for package dependencies
@@ -12,11 +10,6 @@ mkdir -p ${R_LIBS}
 
 . /etc/profile.d/modules.sh
 module load gnu
-module load gdal
-module load geos
-module load jags
-module load proj
-module load lapack
 
 ${PKGROOT}/bin/R --vanilla << END
 # Specify where to pull package source from
@@ -119,7 +112,7 @@ localPackages <- c(
   'RColorBrewer',
   'RCurl',
   'rgenoud',
-  'rgeos',
+  'rgl',
   'rjson',
   'rmeta',
   'robustbase',
@@ -150,5 +143,3 @@ for (package in localPackages) {
   install.packages(package, lib="${R_LIBS}")
 }
 END
-/opt/R/bin/R CMD INSTALL --configure-args='--with-gdal-config=/opt/gdal/bin/gdal-config --with-proj-include=/opt/proj/include --with-proj-lib=/opt/proj/lib' rgdal_${RGDAL_VERSION}.tar.gz -l /opt/R/local/lib 
-/opt/R/bin/R CMD INSTALL --configure-args='--with-jags-lib=/opt/jags/lib --with-jags-include=/opt/jags/include/JAGS' rjags_${RJAGS_VERSION}.tar.gz -l /opt/R/local/lib 
