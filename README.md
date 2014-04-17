@@ -12,22 +12,22 @@ appending the R module name to the following URL...
 [http://cran.r-project.org/web/packages](http://cran.r-project.org/web/packages)
 
 ```
-abind       ellipse      iterators   modeltools    rgdal          sna     
-akima       epitools     kernlab     multcomp      rgenoud        sp      
-alr3        foreach      knitr       multicore     rgeos          spacetime
-base64      Formula      lattice     ncdf4         rgl            SparseM 
-base64enc   fts          ldlasso     network       rjson          statmod 
-bdsmatrix   gap          leaps       nlme          rlecuyer       survey  
-biocLite    gee          lme4        numDeriv      rmeta          tcltk2  
-bitops      geepack      logspline   nws           Rmpi           timeDate
-car         GenABEL      maps        oz            robustbase     tis     
-colorspace  genetics     maptools    PBSmodelling  ROCR           tkrplot 
-combinat    ggplot2      markdown    PredictABLE   RSAGA          tripack 
-cubature    gridExtra    matlab      pspline       RUnit          urca    
-DatABEL     gstat        mboost      quadprog      rworldmap      VGAM    
-DBI         GWAF         mclust      randomForest  scatterplot3d  xtable  
-devtools    haplo.stats  MCMCpack    raster        sem            zoo     
-doMC        hexbin       miscTools   rattle        sgeostat
+abind       ellipse      iterators   modeltools    rgenoud        SparseM 
+akima       epitools     kernlab     multcomp      rgl            statmod
+alr3        foreach      knitr       multicore     rjson          survey
+base64      Formula      lattice     ncdf4         rlecuyer       tcltk2
+base64enc   fts          ldlasso     network       rmeta          timeDate
+bdsmatrix   gap          leaps       nlme          Rmpi           tis        
+biocLite    gee          lme4        numDeriv      robustbase     tkrplot
+bitops      geepack      logspline   nws           ROCR           tripack
+car         GenABEL      maps        oz            RSAGA          urca
+colorspace  genetics     maptools    PBSmodelling  RUnit          VGAM
+combinat    ggplot2      markdown    PredictABLE   rworldmap      xtable
+cubature    gridExtra    matlab      pspline       scatterplot3d  zoo
+DatABEL     gstat        mboost      quadprog      sem
+DBI         GWAF         mclust      randomForest  sgeostat
+devtools    haplo.stats  MCMCpack    raster        sna
+doMC        hexbin       miscTools   rattle        spacetime
 e1071       Hmisc        mix         RColorBrewer  SimHap  
 Ecdat       ineq         mlbench     RCurl         slam    
 ```
@@ -49,9 +49,6 @@ Your development appliance must also have the OS package curl-devel installed to
 The following Rocks rolls must be installed *before* attempting to build the r-modules roll:
 
 - [gnucompiler-roll](https://github.com/sdsc/gnucompiler-roll/)
-- [gdal-roll](https://github.com/sdsc/gdal-roll/)
-- [geos-roll](https://github.com/sdsc/geos-roll/)
-- [proj-roll](https://github.com/sdsc/proj-roll/)
 - [R-roll](https://github.com/sdsc/R-roll/)
 
 
