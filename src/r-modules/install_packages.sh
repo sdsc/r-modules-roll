@@ -112,7 +112,6 @@ localPackages <- c(
   'RColorBrewer',
   'RCurl',
   'rgenoud',
-  'rgl',
   'rjson',
   'rmeta',
   'robustbase',
