@@ -80,7 +80,6 @@ SKIP: {
   'rattle',
   'RColorBrewer',
   'rgenoud',
-  'rgl',
   'rmeta',
   'robustbase',
   'ROCR',
