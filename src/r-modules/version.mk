@@ -1,5 +1,5 @@
 NAME               = r-modules
-RELEASE            = 0
+RELEASE            = 8
 PKGROOT            = /opt/R
 
 SRC_SUBDIR         = r-modules

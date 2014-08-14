@@ -1,3 +1,3 @@
 NAME = r-modules-mpi_$(ROLLMPI)_$(ROLLNETWORK)
-RELEASE = 0
+RELEASE = 8
 RPM.EXTRAS         = AutoReq:No
