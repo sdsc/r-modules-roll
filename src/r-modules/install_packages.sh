@@ -10,7 +10,7 @@ mkdir -p ${R_LIBS}
 
 . /etc/profile.d/modules.sh
 module load gnu
-
+${PKGROOT}/bin/R --vanilla CMD INSTALL ${2}
 ${PKGROOT}/bin/R --vanilla << END
 # Specify where to pull package source from
 repos <- getOption("repos")
@@ -34,10 +34,10 @@ source("http://bioconductor.org/biocLite.R")
 biocLite()
 biocLite("Rgraphviz")
 
-Sys.setenv(CPPFLAGS="-I /opt/proj/include")
-Sys.setenv(LDFLAGS="-L /opt/proj/lib")
-Sys.setenv(PKG_CPPFLAGS="-I /opt/proj/include")
-Sys.setenv(PKG_LDFLAGS="-L /opt/proj/lib")
+Sys.setenv(CPPFLAGS="-I/opt/proj/include")
+Sys.setenv(LDFLAGS="-L/opt/proj/lib")
+Sys.setenv(PKG_CPPFLAGS="-I/opt/proj/include")
+Sys.setenv(PKG_LDFLAGS="-L/opt/proj/lib")
 path<-Sys.getenv("LD_LIBRARY_PATH")
 path<-paste("/opt/proj/lib:",path,sep="")
 Sys.setenv(LD_LIBRARY_PATH=path)
