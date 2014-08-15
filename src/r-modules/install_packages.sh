@@ -35,11 +35,12 @@ biocLite()
 biocLite("Rgraphviz")
 
 Sys.setenv(CPPFLAGS="-I/opt/proj/include")
-Sys.setenv(LDFLAGS="-L/opt/proj/lib")
+Sys.setenv(LDFLAGS="-L/opt/proj/lib -L/opt/geos/lib")
 Sys.setenv(PKG_CPPFLAGS="-I/opt/proj/include")
-Sys.setenv(PKG_LDFLAGS="-L/opt/proj/lib")
+Sys.setenv(PKG_LDFLAGS="-L/opt/proj/lib -L/opt/geos/lib")
 path<-Sys.getenv("LD_LIBRARY_PATH")
 path<-paste("/opt/proj/lib:",path,sep="")
+path<-paste("/opt/geos/lib:",path,sep="")
 Sys.setenv(LD_LIBRARY_PATH=path)
 # Other packages require no special handling
 localPackages <- c(
