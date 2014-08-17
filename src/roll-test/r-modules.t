@@ -5,8 +5,8 @@
 #   if not specified, the test assumes either Compute or Frontend
 
 use Test::More qw(no_plan);
-my @MPIS = split(/\s+/, 'openmpi mvapich2');
-my @NETWORKS = split(/\s+/, 'ib');
+my @MPIS = split(/\s+/, 'ROLLMPI');
+my @NETWORKS = split(/\s+/, 'ROLLNETWORK');
 
 my $appliance = $#ARGV >= 0 ? $ARGV[0] :
                 -d '/export/rocks/install' ? 'Frontend' : 'Compute';
