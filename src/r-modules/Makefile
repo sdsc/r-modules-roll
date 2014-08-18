@@ -75,6 +75,8 @@ install::
 	fi
 	rm -rf  $(PKGROOT)/local/lib/00LOCK*
 	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
+	rm -rf $(ROOT)/$(PKGROOT)/local/lib/rgeos
+	rm -rf $(ROOT)/$(PKGROOT)/local/lib/rgdal
 	rmdir $(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local
 	@echo "::: Package $(NAME) install complete :::"
