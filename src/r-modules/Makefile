@@ -74,10 +74,11 @@ install::
 	  bash install_packages.sh $(PKGROOT) $(NLOPTR_PKG); \
 	fi
 	rm -rf  $(PKGROOT)/local/lib/00LOCK*
-	mv $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
+	mv  $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
+	cp -r $(ROOT)/$(PKGROOT)/local/lib/rgeos $(PKGROOT)/local/lib
+	cp -r $(ROOT)/$(PKGROOT)/local/lib/rgdal $(PKGROOT)/local/lib
 	rm -rf $(ROOT)/$(PKGROOT)/local/lib/rgeos
 	rm -rf $(ROOT)/$(PKGROOT)/local/lib/rgdal
-	rmdir $(PKGROOT)/local/lib
 	rmdir $(PKGROOT)/local
 	@echo "::: Package $(NAME) install complete :::"
 
