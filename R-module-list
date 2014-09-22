@@ -1,0 +1,116 @@
+# List of R modules installed by this roll, passed by Makefile to build
+# directory src/r-modules.
+#
+# Blank lines and lines that begin with a '#' are ignored.
+#
+# Each item lists the CRAN name of a package to install, followed by zero or
+# more suffixes supported by the build Makefile.  Presently, there are:
+#
+# :mpi - dependent on MPI library
+# :biocLite - use biocLite install method, rather than the standard R approach
+#   using install.packages
+
+GenABEL
+tcltk2
+PBSmodelling
+PredictABEL
+tkrplot
+abind
+akima
+alr3
+base64
+base64enc
+bdsmatrix
+bitops
+bnlearn
+car
+colorspace
+combinat
+cubature
+DatABEL
+DBI
+devtools
+doMC
+e1071
+Ecdat
+ellipse
+epitools
+foreach
+Formula
+fts
+gap
+gee
+geepack
+genetics
+ggplot2
+gridExtra
+# gstat - requires rgeos
+GWAF
+haplo.stats
+hexbin
+Hmisc
+ineq
+iterators
+kernlab
+knitr
+lattice
+ldlasso
+leaps
+lme4
+logspline
+maps
+maptools
+markdown
+matlab
+mboost
+mclust
+MCMCpack
+miscTools
+mix
+mlbench
+modeltools
+multcomp
+multicore
+network
+nlme
+nloptr
+numDeriv
+nws
+oz
+pspline
+quadprog
+randomForest
+raster
+rattle
+RColorBrewer
+RCurl
+rgenoud
+rjson
+rmeta
+robustbase
+ROCR
+# RSAGA - requires rgeos
+rworldmap
+# RUnit - missing from UCLA
+scatterplot3d
+sem
+sgeostat
+# SimHap - no longer in CRAN
+slam
+sna
+sp
+# spacetime - requires rgeos
+SparseM
+statmod
+survey
+timeDate
+tis
+tripack
+urca
+VGAM
+xtable
+zoo
+Rgraphviz:biocLite
+Rmpi:mpi
+rlecuyer:mpi
+ncdf4:mpi

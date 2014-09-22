@@ -1,16 +1,14 @@
-NAME               = r-modules
-RELEASE            = 8
-PKGROOT            = /opt/R
+ifndef ROLLMPI
+  ROLLMPI = openmpi
+endif
 
-SRC_SUBDIR         = r-modules
+ifndef ROLLNETWORK
+  ROLLNETWORK = eth
+endif
 
+NAME       = R-module-collection_$(ROLLMPI)_$(ROLLNETWORK)
+VERSION    = 1
+RELEASE    = 0
+PKGROOT    = /opt/R/local/lib
 
-RPM.EXTRAS         = AutoReq:No
-
-NLOPTR_NAME        = nloptr
-NLOPTR_VERSION     = 1.0.0
-NLOPTR_SUFFIX      = tar.gz
-NLOPTR_PKG         = $(NLOPTR_NAME)_$(NLOPTR_VERSION).$(NLOPTR_SUFFIX)
-NLOPTR_DIR         = nloptr
-
-TAR_GZ_PKGS        = $(NLOPTR_PKG)
+RPM.EXTRAS = AutoReq:No

@@ -62,22 +62,99 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 include pull.mk
 
+ROLLCOMPILER = gnu
+COMPILERNAME = gnu
+
+BIOCLITE = http://bioconductor.org/biocLite.R
+CRAN = http://cran.stat.ucla.edu
+NODE_FILE = $(REDHAT.ROOT)/nodes/r-modules-common.xml
+R_MODULES_CACHE = $(REDHAT.ROOT)/src/build-r-modules
+
+CC = gcc
+ifeq ("$(COMPILERNAME)", "intel")
+  CC = icc
+else ifeq ("$(COMPILERNAME)", "pgi")
+  CC = pgcc
+endif
+
+COMPILERSETUP = \
+  module load $(ROLLCOMPILER) || true; \
+  echo === Compiler and version ===; \
+  $(CC) --version
+
+ifeq ("$(ROLLNETWORK)", "eth")
+  MPIMODULE = $(ROLLMPI)
+else
+  MPIMODULE = $(ROLLMPI)_$(ROLLNETWORK)
+endif
+
+MPISETUP = \
+  module load $(MPIMODULE) || true; \
+  echo === MPIHOME ===; \
+  echo $${MPIHOME}
+
+NETCDFSETUP = \
+  module load netcdf || true; \
+  echo === NETCDFHOME ===; \
+  echo $${NETCDFHOME}
+
+RSETUP = \
+  module load R || true; \
+  echo === R version ===; \
+  R --version
+
 build: $(SRC_DIRS)
-	@echo $(TAR_GZ_PKGS)
 	@echo "::: Package $(NAME) build complete :::"
 	
-install::
-	mkdir -p $(ROOT)/$(PKGROOT)/local/lib
-	mkdir -p $(PKGROOT)/local/lib
-	if test -r install_packages.sh; then \
-	  bash install_packages.sh $(PKGROOT) $(NLOPTR_PKG); \
+# Use R to install modules and any missing prerequisites into a cache dir.
+$(R_MODULES_CACHE):
+	mkdir -p -m 755 $(R_MODULES_CACHE)
+	-mkdir -p -m 755 $(PKGROOT)
+	mount --bind $(R_MODULES_CACHE) $(PKGROOT)
+	( \
+	  $(COMPILERSETUP); \
+	  $(MPISETUP); \
+	  $(NETCDFSETUP); \
+	  $(RSETUP); \
+	  for F in $(R_MODULES); do \
+	    stripped=`echo $$F | sed 's/:biocLite//'`; \
+	    if test "$$stripped" != "$$F"; then \
+	      R -e "source('$(BIOCLITE)'); biocLite(); biocLite('$${stripped}');"; \
+	      continue; \
+	    fi; \
+	    config=""; \
+	    stripped=`echo $$F | sed 's/:mpi//'`; \
+	    if test "$$stripped" != "$$F"; then \
+	      config=--with-mpi=${MPIHOME}; \
+	      F=$$stripped; \
+	    fi; \
+	    Rscript install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
+	  done \
+	)
+	umount $(PKGROOT)
+	-rmdir -p $(PKGROOT)
+	for F in $(R_MODULES); do \
+	  stripped=`echo $F | sed 's/:.*//'`; \
+	  if test ! -d $(R_MODULES_CACHE)/$$stripped; then \
+	    echo *** module $$stripped missing; \
+	    exit 2; \
+	  fi; \
+	done
+
+# Package each module and each prequisite into individual rpms, using R to
+# extract the module version number.  Also have to add each rpm name to the
+# r-modules roll node file so that Rocks will install it.
+install:: $(R_MODULES_CACHE)
+	-mkdir -p -m 755 $(ROOT)/$(PKGROOT)
+	if test -z "$(R_MODULE)"; then \
+	  for module in `ls $(R_MODULES_CACHE)`; do \
+	    version=`module load R && export R_LIBS=$(R_MODULES_CACHE) && R -q -e "packageVersion('$${module}')" | grep ^.1 | awk -F"'" '{print $$2}'`; \
+	    $(MAKE) NAME=R-$${module} VERSION=$${version} R_MODULE=$${module} rpm; \
+	    perl -pi -e 'print $$_ and s/$(NAME)/R-'$${module}'/ if m/$(NAME)/' $(NODE_FILE); \
+	  done; \
+	else \
+	  cp -r $(R_MODULES_CACHE)/$(R_MODULE) $(ROOT)/$(PKGROOT); \
 	fi
-	rm -rf  $(PKGROOT)/local/lib/00LOCK*
-	mv  $(PKGROOT)/local/lib/* $(ROOT)/$(PKGROOT)/local/lib
-	cp -r $(ROOT)/$(PKGROOT)/local/lib/rgeos $(PKGROOT)/local/lib
-	cp -r $(ROOT)/$(PKGROOT)/local/lib/rgdal $(PKGROOT)/local/lib
-	rm -rf $(ROOT)/$(PKGROOT)/local/lib/rgeos
-	rm -rf $(ROOT)/$(PKGROOT)/local/lib/rgdal
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::

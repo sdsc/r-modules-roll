@@ -84,12 +84,12 @@ default:
 	  done; \
 	  perl -pi -e '$$_ = "" if m/ROLL(COMPILER|NETWORK|MPI)/' $$o; \
 	done
-	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" ROLLNETWORK="$(ROLLNETWORK)" ROLLMPI="$(ROLLMPI)" roll
-
+	R_MODULES=`sed 's/#.*//' R-module-list | tr '\n' ' '`; \
+	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" ROLLNETWORK="$(ROLLNETWORK)" ROLLMPI="$(ROLLMPI)" R_MODULES="$${R_MODULES}" roll
 
 distclean:: clean
 	-rm -f _arch build.log
-	-rm -rf RPMS SRPMS
+	-rm -rf RPMS SRPMS src/build*
 	-for i in `ls nodes/*.in`; do \
 	  export o=`echo $$i | sed 's/\.in//'`; \
 	  rm -f $$o; \

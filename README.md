@@ -2,35 +2,14 @@
 
 ## Overview
 
-This roll bundles the R packages listed below for local installation on compute
-nodes.
+This roll bundles a collection of R modules for local installation on Rocks
+compute nodes.  See the file R-module-list for the include set of modules.
 
 For more information about the various packages included in the r-modules roll
 please visit their official web pages which can generally be reached by
 appending the R module name to the following URL...
 
 [http://cran.r-project.org/web/packages](http://cran.r-project.org/web/packages)
-
-```
-abind       ellipse      iterators   modeltools    rgenoud        SparseM 
-akima       epitools     kernlab     multcomp      rgl            statmod
-alr3        foreach      knitr       multicore     rjson          survey
-base64      Formula      lattice     ncdf4         rlecuyer       tcltk2
-base64enc   fts          ldlasso     network       rmeta          timeDate
-bdsmatrix   gap          leaps       nlme          Rmpi           tis        
-biocLite    gee          lme4        numDeriv      robustbase     tkrplot
-bitops      geepack      logspline   nws           ROCR           tripack
-car         GenABEL      maps        oz            RSAGA          urca
-colorspace  genetics     maptools    PBSmodelling  RUnit          VGAM
-combinat    ggplot2      markdown    PredictABLE   rworldmap      xtable
-cubature    gridExtra    matlab      pspline       scatterplot3d  zoo
-DatABEL     gstat        mboost      quadprog      sem
-DBI         GWAF         mclust      randomForest  sgeostat
-devtools    haplo.stats  MCMCpack    raster        sna
-doMC        hexbin       miscTools   rattle        spacetime
-e1071       Hmisc        mix         RColorBrewer  SimHap  
-Ecdat       ineq         mlbench     RCurl         slam    
-```
 
 ## Requirements
 
@@ -46,11 +25,11 @@ Your development appliance must also have the OS package curl-devel installed to
 
 ## Dependencies
 
-The following Rocks rolls must be installed *before* attempting to build the r-modules roll:
+R must be installed with an environment modulefile that adds it to your PATH.
+(The R-roll provides this.)
 
-- [gnucompiler-roll](https://github.com/sdsc/gnucompiler-roll/)
-- [R-roll](https://github.com/sdsc/R-roll/)
-
+netcdf must be installed with an environment modulefile that sets NETCDFHOME.
+(The netcdf-roll provides this.)
 
 ## Building
 
@@ -73,10 +52,10 @@ flavors.  By default, it builds for openmpi ethernet.  To build for a different
 configuration, use the `ROLLMPI` and `ROLLNETWORK` make variables, e.g.,
 
 ```shell
-% make ROLLMPI=mpich2 ROLLNETWORK=mx 
+% make ROLLMPI=mvapich2 ROLLNETWORK=ib
 ```
 
-The build process currently supports `ROLLMPI` values "openmpi", "mpich2", and
+The build process currently supports `ROLLMPI` values "openmpi" and
 "mvapich2", defaulting to "openmpi".  It uses any `ROLLNETWORK` variable
 value(s) to load appropriate mpi modules, assuming that there are modules named
 `$(ROLLMPI)_$(ROLLNETWORK)` available (e.g., openmpi_ib, mpich2_mx, etc.).
@@ -93,3 +72,14 @@ To install, execute these instructions on a Rocks frontend:
 % rocks create distro
 % rocks run roll r-modules | bash
 ```
+
+## Testing
+
+The r-modules-roll includes a test script which can be run to verify proper
+installation of the r-modules-roll documentation, binaries and module files. To
+run the test scripts execute the following command(s):
+
+```shell
+% /root/rolltests/r-modules.t 
+```
+

@@ -1,4 +1,6 @@
-NAME	= r-modules-roll-test
-VERSION	= 1
-RELEASE	= 8
-RPM.EXTRAS         = AutoReq:No
+NAME       = R-modules-roll-test
+VERSION    = 2
+RELEASE    = 0
+PKGROOT    = /root/rolltests
+
+RPM.EXTRAS = AutoReq:No
