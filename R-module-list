@@ -44,7 +44,6 @@ geepack
 genetics
 ggplot2
 gridExtra
-# gstat - requires rgeos
 GWAF
 haplo.stats
 hexbin
@@ -70,7 +69,7 @@ mix
 mlbench
 modeltools
 multcomp
-multicore
+# multicore - removed from CRAN
 network
 nlme
 nloptr
@@ -89,17 +88,15 @@ rjson
 rmeta
 robustbase
 ROCR
-# RSAGA - requires rgeos
 rworldmap
-# RUnit - missing from UCLA
+RUnit
 scatterplot3d
 sem
 sgeostat
-# SimHap - no longer in CRAN
+# SimHap - removed from CRAN
 slam
 sna
 sp
-# spacetime - requires rgeos
 SparseM
 statmod
 survey
