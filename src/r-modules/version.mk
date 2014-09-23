@@ -8,7 +8,7 @@ endif
 
 NAME       = R-module-collection_$(ROLLMPI)_$(ROLLNETWORK)
 VERSION    = 1
-RELEASE    = 0
+RELEASE    = 1
 PKGROOT    = /opt/R/local/lib
 
 RPM.EXTRAS = AutoReq:No

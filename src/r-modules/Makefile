@@ -118,15 +118,15 @@ $(R_MODULES_CACHE):
 	  $(RSETUP); \
 	  for F in $(R_MODULES); do \
 	    stripped=`echo $$F | sed 's/:biocLite//'`; \
-	    if test "$$stripped" != "$$F"; then \
+	    if test "$${stripped}" != "$$F"; then \
 	      R -e "source('$(BIOCLITE)'); biocLite(); biocLite('$${stripped}');"; \
 	      continue; \
 	    fi; \
 	    config=""; \
 	    stripped=`echo $$F | sed 's/:mpi//'`; \
-	    if test "$$stripped" != "$$F"; then \
+	    if test "$${stripped}" != "$$F"; then \
 	      config=--with-mpi=${MPIHOME}; \
-	      F=$$stripped; \
+	      F=$${stripped}; \
 	    fi; \
 	    Rscript install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
 	  done \
@@ -134,9 +134,9 @@ $(R_MODULES_CACHE):
 	umount $(PKGROOT)
 	-rmdir -p $(PKGROOT)
 	for F in $(R_MODULES); do \
-	  stripped=`echo $F | sed 's/:.*//'`; \
-	  if test ! -d $(R_MODULES_CACHE)/$$stripped; then \
-	    echo *** module $$stripped missing; \
+	  stripped=`echo $$F | sed 's/:.*//'`; \
+	  if test ! -d $(R_MODULES_CACHE)/$${stripped}; then \
+	    echo *** module $${stripped} missing; \
 	    exit 2; \
 	  fi; \
 	done
