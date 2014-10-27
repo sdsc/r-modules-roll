@@ -68,13 +68,11 @@ copyright rpm pkg clean::
 	for i in $(SRCDIRS) ; do \
 	  grep -q ROLLMPI $$i/version.mk; \
 	  if test $$? -eq 0; then \
-	      for m in $(ROLLMPI); do \
-	         for n in $(ROLLNETWORK); do \
-	           echo make $@ in $$i with ROLLMPI=$$m ROLLNETWORK=$$n; \
-	           (cd $$i && $(MAKE) ROLLMPI=$$m ROLLNETWORK=$$n R_MODULES="$(R_MODULES)" $@) || exit 2; \
-	         done; \
-              done; \
+	    for m in $(ROLLMPI); do \
+	      echo make $@ in $$i with ROLLMPI=$$m; \
+	      (cd $$i && $(MAKE) ROLLMPI=$$m R_MODULES="$(R_MODULES)" $@) || exit 2; \
+            done; \
 	  else \
-	    (cd $$i && $(MAKE) ROLLMPI="$(ROLLMPI)" ROLLNETWORK="$(ROLLNETWORK)"R_MODULES="$(R_MODULES)" $@) || exit 2; \
+	    (cd $$i && $(MAKE) ROLLMPI="$(ROLLMPI)" R_MODULES="$(R_MODULES)" $@) || exit 2; \
 	  fi; \
 	done

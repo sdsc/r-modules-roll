@@ -1,14 +1,11 @@
 ifndef ROLLMPI
-  ROLLMPI = openmpi
+  ROLLMPI = rocks-openmpi
 endif
+MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
-ifndef ROLLNETWORK
-  ROLLNETWORK = eth
-endif
-
-NAME       = R-module-collection_$(ROLLMPI)_$(ROLLNETWORK)
+NAME       = R-module-collection_$(MPINAME)
 VERSION    = 1
-RELEASE    = 1
+RELEASE    = 2
 PKGROOT    = /opt/R/local/lib
 
 RPM.EXTRAS = AutoReq:No

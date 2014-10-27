@@ -33,32 +33,39 @@ netcdf must be installed with an environment modulefile that sets NETCDFHOME.
 
 ## Building
 
-To build the r-modules-roll, execute these instructions on a Rocks development
+To build the r-modules-roll, execute this on a Rocks development
 machine (e.g., a frontend or development appliance):
 
 ```shell
-% make default 2>&1 | tee build.log
-% grep "RPM build error" build.log
+% make 2>&1 | tee build.log
 ```
 
-If nothing is returned from the grep command then the roll should have been
-created as... `r-modules-*.iso`. If you built the roll on a Rocks frontend then
-proceed to the installation step. If you built the roll on a Rocks development
-appliance you need to copy the roll to your Rocks frontend before continuing
-with installation.
+A successful build will create the file `r-modules-*.disk1.iso`.  If you built the
+roll on a Rocks frontend, proceed to the installation step. If you built the
+roll on a Rocks development appliance, you need to copy the roll to your Rocks
+frontend before continuing with installation.
 
-This roll source supports building for different network fabrics and mpi
-flavors.  By default, it builds for openmpi ethernet.  To build for a different
-configuration, use the `ROLLMPI` and `ROLLNETWORK` make variables, e.g.,
+This roll source supports building for different
+MPI flavors.  The `ROLLMPI` make variable can be used to
+specify the names of MPI modulefiles to use for building the
+software, e.g.,
 
 ```shell
-% make ROLLMPI=mvapich2 ROLLNETWORK=ib
+% make ROLLMPI=mvapich2_ib 2>&1 | tee build.log
 ```
 
-The build process currently supports `ROLLMPI` values "openmpi" and
-"mvapich2", defaulting to "openmpi".  It uses any `ROLLNETWORK` variable
-value(s) to load appropriate mpi modules, assuming that there are modules named
-`$(ROLLMPI)_$(ROLLNETWORK)` available (e.g., openmpi_ib, mpich2_mx, etc.).
+Any MPI modulefile name may be used as the value of
+the `ROLLMPI` variable.  The default value is "rocks-openmpi".
+
+The value of the `ROLLMPI` variable is incorporated into
+the names of the produced rpms.  For example,
+
+```shell
+make ROLLMPI=mvapich2_ib 2>&1 | tee build.log
+```
+
+produces a roll containing an rpm with a name that begins
+`R-gap_mvapich2_ib`.
 
 
 ## Installation
@@ -76,10 +83,9 @@ To install, execute these instructions on a Rocks frontend:
 ## Testing
 
 The r-modules-roll includes a test script which can be run to verify proper
-installation of the r-modules-roll documentation, binaries and module files. To
+installation of the roll documentation, binaries and module files. To
 run the test scripts execute the following command(s):
 
 ```shell
 % /root/rolltests/r-modules.t 
 ```
-
