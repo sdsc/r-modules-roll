@@ -57,16 +57,6 @@ software, e.g.,
 Any MPI modulefile name may be used as the value of
 the `ROLLMPI` variable.  The default value is "rocks-openmpi".
 
-The value of the `ROLLMPI` variable is incorporated into
-the names of the produced rpms.  For example,
-
-```shell
-make ROLLMPI=mvapich2_ib 2>&1 | tee build.log
-```
-
-produces a roll containing an rpm with a name that begins
-`R-gap_mvapich2_ib`.
-
 
 ## Installation
 
