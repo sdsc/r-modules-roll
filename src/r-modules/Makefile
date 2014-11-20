@@ -60,56 +60,46 @@ REDHAT.ROOT = $(CURDIR)/../../
 
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
-include pull.mk
-
-ROLLCOMPILER = gnu
-COMPILERNAME = gnu
+include $(SDSCDEVEL)/Pull.mk
+include $(SDSCDEVEL)/Rules.mk
 
 BIOCLITE = http://bioconductor.org/biocLite.R
 CRAN = http://cran.stat.ucla.edu
 NODE_FILE = $(REDHAT.ROOT)/nodes/r-modules-common.xml
-R_MODULES_CACHE = $(REDHAT.ROOT)/src/build-r-modules
+R_MODULES_CACHE = $(REDHAT.ROOT)/cache/build-r-modules
 
-CC = gcc
-ifeq ("$(COMPILERNAME)", "intel")
-  CC = icc
-else ifeq ("$(COMPILERNAME)", "pgi")
-  CC = pgcc
-endif
+LICENSE_FILES = $(SOURCE_DIR)/LICENSE
 
-COMPILERSETUP = \
-  module load $(ROLLCOMPILER) || true; \
-  echo === Compiler and version ===; \
-  $(CC) --version
+$(NAME).spec: DESCRIPTION LICENSE
 
-MPISETUP = \
-  module load $(ROLLMPI) || true; \
-  echo === MPIHOME ===; \
-  echo $${MPIHOME}
+DESCRIPTION:
+	$(MODULE_LOAD_CC); \
+	$(MODULE_LOAD_MPI); \
+	( \
+	  $(DESCRIBE_PKG); \
+	  $(DESCRIBE_CC); \
+	  $(DESCRIBE_MPI); \
+	  $(DESCRIBE_NETCDF); \
+	  $(DESCRIBE_R) \
+	) > $@
 
-NETCDFSETUP = \
-  module load netcdf || true; \
-  echo === NETCDFHOME ===; \
-  echo $${NETCDFHOME}
+LICENSE:
+	# TODO
+	touch $@
 
-RSETUP = \
-  module load R || true; \
-  echo === R version ===; \
-  R --version
-
-build: $(SRC_DIRS)
+build:
 	@echo "::: Package $(NAME) build complete :::"
 	
 # Use R to install modules and any missing prerequisites into a cache dir.
 $(R_MODULES_CACHE):
 	mkdir -p -m 755 $(R_MODULES_CACHE)
 	-mkdir -p -m 755 $(PKGROOT)
-	mount --bind $(R_MODULES_CACHE) $(PKGROOT)
+	$(call BIND_MOUNT, $(PKGROOT), $(R_MODULES_CACHE))
 	( \
-	  $(COMPILERSETUP); \
-	  $(MPISETUP); \
-	  $(NETCDFSETUP); \
-	  $(RSETUP); \
+	  $(MODULE_LOAD_CC); \
+	  $(MODULE_LOAD_MPI); \
+	  $(MODULE_LOAD_NETCDF); \
+	  $(MODULE_LOAD_R); \
 	  for F in $(R_MODULES); do \
 	    stripped=`echo $$F | sed 's/:biocLite//'`; \
 	    if test "$${stripped}" != "$$F"; then \
@@ -125,8 +115,7 @@ $(R_MODULES_CACHE):
 	    Rscript install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
 	  done \
 	)
-	umount $(PKGROOT)
-	-rmdir -p $(PKGROOT)
+	$(call BIND_UMOUNT, $(PKGROOT))
 	for F in $(R_MODULES); do \
 	  stripped=`echo $$F | sed 's/:.*//'`; \
 	  if test ! -d $(R_MODULES_CACHE)/$${stripped}; then \
@@ -143,8 +132,8 @@ install:: $(R_MODULES_CACHE)
 	if test -z "$(R_MODULE)"; then \
 	  for module in `ls $(R_MODULES_CACHE)`; do \
 	    version=`module load R && export R_LIBS=$(R_MODULES_CACHE) && R -q -e "packageVersion('$${module}')" | grep ^.1 | awk -F"'" '{print $$2}'`; \
-	    $(MAKE) NAME=R-$${module} VERSION=$${version} R_MODULE=$${module} rpm; \
-	    perl -pi -e 'print $$_ and s/$(NAME)/R-'$${module}'/ if m/$(NAME)/' $(NODE_FILE); \
+	    $(MAKE) NAME=sdsc-R-$${module} VERSION=$${version} R_MODULE=$${module} rpm; \
+	    perl -pi -e 'print $$_ and s/$(NAME)/sdsc-R-'$${module}'/ if m/$(NAME)/' $(NODE_FILE); \
 	  done; \
 	else \
 	  cp -r $(R_MODULES_CACHE)/$(R_MODULE) $(ROOT)/$(PKGROOT); \
@@ -152,3 +141,4 @@ install:: $(R_MODULES_CACHE)
 	@echo "::: Package $(NAME) install complete :::"
 
 clean::
+	rm -fr DESCRIPTION LICENSE

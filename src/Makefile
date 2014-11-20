@@ -1,4 +1,3 @@
-#
 # $Id$
 #
 # @Copyright@
@@ -56,23 +55,15 @@
 # @Copyright@
 #
 # $Log$
-#
 
--include $(shell ${ROCKSROOT}/bin/arch).mk
--include $(shell ${ROCKSROOT}/bin/os).mk
+-include $(shell $(ROCKSROOT)/bin/arch).mk
+-include $(shell $(ROCKSROOT)/bin/os).mk
 
 default:
 	@echo "copyright|rpm|pkg|clean"
 
-copyright rpm pkg clean::
-	for i in $(SRCDIRS) ; do \
-	  grep -q ROLLMPI $$i/version.mk; \
-	  if test $$? -eq 0; then \
-	    for m in $(ROLLMPI); do \
-	      echo make $@ in $$i with ROLLMPI=$$m; \
-	      (cd $$i && $(MAKE) ROLLMPI=$$m R_MODULES="$(R_MODULES)" $@) || exit 2; \
-            done; \
-	  else \
-	    (cd $$i && $(MAKE) ROLLMPI="$(ROLLMPI)" R_MODULES="$(R_MODULES)" $@) || exit 2; \
-	  fi; \
+copyright pkg rpm clean::
+	for i in $(SRCDIRS); do \
+	  (cd $$i && $(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" ROLLMPI="$(ROLLMPI)" R_MODULES="$(R_MODULES)" $@) || exit 2; \
 	done
+

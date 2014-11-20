@@ -66,20 +66,10 @@ endif
 -include $(ROLLSROOT)/etc/Rolls.mk
 include Rolls.mk
 
+# Make a copy of the node file into which the R-modules build will plug the
+# list of R module packages and any prerequisites.
 default:
-	for i in `ls nodes/*.in`; do \
-	  export o=`echo $$i | sed 's/\.in//'`; \
-	  cp $$i $$o; \
-	  for c in $(ROLLCOMPILER); do \
-	    COMPILERNAME=`echo $$c | awk -F/ '{print $$1}'`; \
-	    perl -pi -e "print and s/COMPILERNAME/$$COMPILERNAME/g if m/COMPILERNAME/" $$o; \
-	  done; \
-	  for m in $(ROLLMPI); do \
-	    MPINAME=`echo $$m | awk -F/ '{print $$1}'`; \
-	    perl -pi -e "print and s/MPINAME/$$MPINAME/g if m/MPINAME/" $$o; \
-	  done; \
-	  perl -pi -e '$$_ = "" if m/COMPILERNAME|MPINAME/' $$o; \
-	done
+	cp nodes/r-modules-common.xml.in nodes/r-modules-common.xml
 	R_MODULES=`sed 's/#.*//' R-module-list | tr '\n' ' '`; \
 	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" ROLLMPI="$(ROLLMPI)" R_MODULES="$${R_MODULES}" roll
 
@@ -87,9 +77,7 @@ clean::
 	rm -f _arch bootstrap.py
 
 distclean: clean
-	for i in `ls nodes/*.in`; do \
-	  export o=`echo $$i | sed 's/\.in//'`; \
-	  rm -f $$o; \
-	done
-	rm -fr RPMS SRPMS src/build*
+	rm -f nodes/r-modules-common.xml
+	rm -fr cache
+	rm -fr RPMS SRPMS
 	-rm -f build.log
