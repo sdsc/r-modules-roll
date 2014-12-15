@@ -25,11 +25,18 @@ Your development appliance must also have the OS package curl-devel installed to
 
 ## Dependencies
 
-R must be installed with an environment modulefile that adds it to your PATH.
-(The R-roll provides this.)
+The sdsc-roll must be installed on the build machine, since the build process
+depends on make include files provided by that roll.
 
-netcdf must be installed with an environment modulefile that sets NETCDFHOME.
-(The netcdf-roll provides this.)
+The roll sources assume that modulefiles provided by SDSC compiler, R, and mpi
+rolls are available, but it will build without them as long as the environment
+variables they provide are otherwise defined.
+
+The build process requires the NETCDF libraries and assumes that the netcdf
+modulefile provided by the SDSC netcdf-roll is available.  It will build without
+the modulefile as long as the environment variables it provides are otherwise
+defined.
+
 
 ## Building
 
