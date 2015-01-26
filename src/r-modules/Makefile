@@ -116,13 +116,17 @@ $(R_MODULES_CACHE):
 	  done \
 	)
 	$(call BIND_UMOUNT, $(PKGROOT))
+	missing=''; \
 	for F in $(R_MODULES); do \
 	  stripped=`echo $$F | sed 's/:.*//'`; \
 	  if test ! -d $(R_MODULES_CACHE)/$${stripped}; then \
-	    echo *** module $${stripped} missing; \
-	    exit 2; \
+	    missing="$${missing} $${stripped}"; \
 	  fi; \
-	done
+	done; \
+	if test -n "$${missing}"; then \
+	  echo "*** error: module(s) $${missing} missing"; \
+	  exit 2; \
+	fi
 
 # Package each module and each prequisite into individual rpms, using R to
 # extract the module version number.  Also have to add each rpm name to the
