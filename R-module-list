@@ -10,11 +10,6 @@
 # :biocLite - use biocLite install method, rather than the standard R approach
 #   using install.packages
 
-GenABEL
-tcltk2
-PBSmodelling
-PredictABEL
-tkrplot
 abind
 akima
 alr3
@@ -37,10 +32,11 @@ ellipse
 epitools
 foreach
 Formula
-fts
+# fts # Compilation w/gnu 4.9.2 fails
 gap
 gee
 geepack
+GenABEL
 genetics
 ggplot2
 gridExtra
@@ -63,19 +59,22 @@ markdown
 matlab
 mboost
 mclust
-MCMCpack
+# MCMCpack # Compilation w/gnu 4.9.2 fails
 miscTools
 mix
 mlbench
 modeltools
 multcomp
 # multicore - removed from CRAN
+ncdf4
 network
 nlme
 nloptr
 numDeriv
 nws
 oz
+PBSmodelling
+PredictABEL
 pspline
 quadprog
 randomForest
@@ -84,12 +83,15 @@ rattle
 RColorBrewer
 RCurl
 rgenoud
+Rgraphviz:biocLite
 rjson
+rlecuyer:mpi
 rmeta
+Rmpi:mpi
 robustbase
 ROCR
-rworldmap
 RUnit
+rworldmap
 scatterplot3d
 sem
 sgeostat
@@ -100,14 +102,12 @@ sp
 SparseM
 statmod
 survey
+tcltk2
 timeDate
 tis
+tkrplot
 tripack
 urca
 VGAM
 xtable
 zoo
-Rgraphviz:biocLite
-Rmpi:mpi
-rlecuyer:mpi
-ncdf4:mpi
