@@ -63,6 +63,18 @@ include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
+ifeq ("$(MPINAME)", "mvapich2")
+    RMPI_TYPE=MPICH2
+else ifeq ("$(MPINAME)", "mpich2")
+    RMPI_TYPE=MPICH2
+else ifeq ("$(MPINAME)", "mvapich")
+    RMPI_TYPE=MPICH
+else ifeq ("$(MPINAME)", "mpich")
+    RMPI_TYPE=MPICH
+else ifeq ("$(MPINAME)", "openmpi")
+    RMPI_TYPE=OPENMPI
+endif
+
 BIOCLITE = http://bioconductor.org/biocLite.R
 CRAN = http://cran.stat.ucla.edu
 NODE_FILE = $(REDHAT.ROOT)/nodes/r-modules-common.xml
@@ -87,7 +99,7 @@ LICENSE:
 	# TODO
 	touch $@
 
-build:
+build: $(R_MODULES_CACHE)
 	@echo "::: Package $(NAME) build complete :::"
 	
 # Use R to install modules and any missing prerequisites into a cache dir.
@@ -100,10 +112,12 @@ $(R_MODULES_CACHE):
 	  $(MODULE_LOAD_MPI); \
 	  $(MODULE_LOAD_NETCDF); \
 	  $(MODULE_LOAD_R); \
+          export RMPI_TYPE=$(RMPI_TYPE); \
 	  for F in $(R_MODULES); do \
 	    stripped=`echo $$F | sed 's/:biocLite//'`; \
+            echo "Building $${F}" ; \
 	    if test "$${stripped}" != "$$F"; then \
-	      R -e "source('$(BIOCLITE)'); biocLite(); biocLite('$${stripped}');"; \
+	      R --verbose -e "source('$(BIOCLITE)'); biocLite(); biocLite('$${stripped}');"; \
 	      continue; \
 	    fi; \
 	    config=""; \
@@ -112,7 +126,7 @@ $(R_MODULES_CACHE):
 	      config=--with-mpi=${MPIHOME}; \
 	      F=$${stripped}; \
 	    fi; \
-	    Rscript install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
+	    Rscript --verbose install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
 	  done \
 	)
 	$(call BIND_UMOUNT, $(PKGROOT))
