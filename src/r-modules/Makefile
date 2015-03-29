@@ -63,15 +63,15 @@ include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
-ifeq ("$(MPINAME)", "mvapich2")
+ifeq ("$(MPINAME)", *"mvapich2"*)
     RMPI_TYPE=MPICH2
-else ifeq ("$(MPINAME)", "mpich2")
+else ifeq ("$(MPINAME)", *"mpich2"*)
     RMPI_TYPE=MPICH2
-else ifeq ("$(MPINAME)", "mvapich")
+else ifeq ("$(MPINAME)", *"mvapich"*)
     RMPI_TYPE=MPICH
-else ifeq ("$(MPINAME)", "mpich")
+else ifeq ("$(MPINAME)", *"mpich"*)
     RMPI_TYPE=MPICH
-else ifeq ("$(MPINAME)", "openmpi")
+else ifeq ("$(MPINAME)", *"openmpi"*)
     RMPI_TYPE=OPENMPI
 endif
 
