@@ -63,15 +63,15 @@ include Rules.mk
 include $(SDSCDEVEL)/Pull.mk
 include $(SDSCDEVEL)/Rules.mk
 
-ifeq ("$(MPINAME)", *"mvapich2"*)
+ifeq (findstring("(MPINAME), "mvapich2"),"mvapich2")
     RMPI_TYPE=MPICH2
-else ifeq ("$(MPINAME)", *"mpich2"*)
+else ifeq (findstring($(MPINAME), "mpich2"),"mpich2")
     RMPI_TYPE=MPICH2
-else ifeq ("$(MPINAME)", *"mvapich"*)
+else ifeq (findstring($(MPINAME),"mvapich"),"mvapich")
+    RMPI_TYPE=MPIC*H
+else ifeq (findstring($(MPINAME), "mpich"),"mpich")
     RMPI_TYPE=MPICH
-else ifeq ("$(MPINAME)", *"mpich"*)
-    RMPI_TYPE=MPICH
-else ifeq ("$(MPINAME)", *"openmpi"*)
+else ifeq (findstring($(MPINAME), "openmpi"),"openmpi")
     RMPI_TYPE=OPENMPI
 endif
 
