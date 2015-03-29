@@ -123,7 +123,7 @@ $(R_MODULES_CACHE):
 	    config=""; \
 	    stripped=`echo $$F | sed 's/:mpi//'`; \
 	    if test "$${stripped}" != "$$F"; then \
-	      config=--with-mpi=${MPIHOME}; \
+	      config=--with-mpi=$${MPIHOME} ; \
 	      F=$${stripped}; \
 	    fi; \
 	    Rscript --verbose install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
