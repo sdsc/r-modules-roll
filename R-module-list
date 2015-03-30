@@ -30,6 +30,7 @@ e1071
 Ecdat
 ellipse
 epitools
+exomePeak:biocLite
 foreach
 Formula
 # fts # Compilation w/gnu 4.9.2 fails
