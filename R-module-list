@@ -19,6 +19,7 @@ bdsmatrix
 bitops
 bnlearn
 car
+ChemmineR:biocLite
 colorspace
 combinat
 cubature
@@ -31,6 +32,7 @@ Ecdat
 ellipse
 epitools
 exomePeak:biocLite
+fmcsR:biocLite
 foreach
 Formula
 # fts # Compilation w/gnu 4.9.2 fails
