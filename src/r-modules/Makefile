@@ -76,7 +76,7 @@ else ifeq ($(findstring openmpi,$(MPINAME)),openmpi )
 endif
 
 BIOCLITE = http://bioconductor.org/biocLite.R
-CRAN = http://cran.stat.ucla.edu
+CRAN = http://cran.cnr.berkeley.edu
 NODE_FILE = $(REDHAT.ROOT)/nodes/r-modules-common.xml
 R_MODULES_CACHE = $(REDHAT.ROOT)/cache/build-r-modules
 
