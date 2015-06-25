@@ -120,10 +120,10 @@ $(R_MODULES_CACHE):
 	      R --verbose -e "source('$(BIOCLITE)'); biocLite(); biocLite('$${stripped}');"; \
 	      continue; \
 	    fi; \
-	    config=""; \
+	    config="CXXFLAGS=-std=c++11"; \
 	    stripped=`echo $$F | sed 's/:mpi//'`; \
 	    if test "$${stripped}" != "$$F"; then \
-	      config=--with-mpi=$${MPIHOME} ; \
+	      config="$config --with-mpi=$${MPIHOME}"; \
 	      F=$${stripped}; \
 	    fi; \
 	    Rscript --verbose install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
