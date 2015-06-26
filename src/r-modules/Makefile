@@ -123,10 +123,10 @@ $(R_MODULES_CACHE):
 	    config="CXXFLAGS=-std=c++11"; \
 	    stripped=`echo $$F | sed 's/:mpi//'`; \
 	    if test "$${stripped}" != "$$F"; then \
-	      config="$config --with-mpi=$${MPIHOME}"; \
+	      config="$$config --with-mpi=$${MPIHOME}"; \
 	      F=$${stripped}; \
 	    fi; \
-	    Rscript --verbose install_package.R $(CRAN) $(PKGROOT) $$F $$config; \
+	    Rscript --verbose install_package.R $(CRAN) $(PKGROOT) $$F "$$config"; \
 	  done \
 	)
 	$(call BIND_UMOUNT, $(PKGROOT))
