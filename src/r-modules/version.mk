@@ -10,7 +10,7 @@ MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME       = sdsc-R-module-collection
 VERSION    = 2
-RELEASE    = 1
+RELEASE    = 4
 PKGROOT    = /opt/R/local/lib
 
 RPM.EXTRAS = AutoReq:No
