@@ -1,8 +1,3 @@
-ifndef ROLLCOMPILER
-  ROLLCOMPILER = gnu
-endif
-COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
-
 ifndef ROLLMPI
   ROLLMPI = rocks-openmpi
 endif
