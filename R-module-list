@@ -19,7 +19,6 @@ bdsmatrix
 bitops
 bnlearn
 car
-ChemmineR:biocLite
 colorspace
 combinat
 cubature
@@ -31,8 +30,6 @@ e1071
 Ecdat
 ellipse
 epitools
-exomePeak:biocLite
-fmcsR:biocLite
 foreach
 Formula
 # fts # Compilation w/gnu 4.9.2 fails
@@ -86,7 +83,6 @@ rattle
 RColorBrewer
 RCurl
 rgenoud
-Rgraphviz:biocLite
 rjson
 rlecuyer:mpi
 rmeta
@@ -114,3 +110,9 @@ urca
 VGAM
 xtable
 zoo
+# Dependencies on above packages dictate that these be listed last.
+exomePeak:biocLite
+fmcsR:biocLite
+ChemmineR:biocLite
+Rgraphviz:biocLite
+ShortRead:biocLite
