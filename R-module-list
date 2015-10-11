@@ -32,7 +32,7 @@ ellipse
 epitools
 foreach
 Formula
-# fts # Compilation w/gnu 4.9.2 fails
+# fts - Compilation w/gnu 4.9.2 fails
 gap
 gee
 geepack
@@ -59,7 +59,7 @@ markdown
 matlab
 mboost
 mclust
-# MCMCpack # Compilation w/gnu 4.9.2 fails
+# MCMCpack - Compilation w/gnu 4.9.2 fails
 miscTools
 mix
 mlbench
@@ -92,7 +92,7 @@ ROCR
 RUnit
 rworldmap
 scatterplot3d
-sem
+# sem - unfulfilled dependency on libv8
 sgeostat
 # SimHap - removed from CRAN
 slam
