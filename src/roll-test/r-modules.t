@@ -19,10 +19,10 @@ my $TESTFILE = 'tmprmod';
 SKIP: {
   skip 'R not installed', int(@RMODULES) + 1 if ! -d '/opt/R';
   ok(-d '/opt/R/local/lib', 'R library created');
-  $output = `module load R; R -q -e "library()" 2>&1`;
   foreach my $module(@RMODULES) {
     $module =~ s/:.*//;
-    ok($output =~ /$module/, "$module R module installed");
+    $output = `module load R ROLLMPI; /bin/echo "require($module, lib.loc='/opt/R/local/lib');(.packages())" | R --vanilla 2>&1`;
+    like($output, qr/"$module"/, "$module R module loads");
   }
 }
 `/bin/rm -fr $TESTFILE*`;
