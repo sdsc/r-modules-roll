@@ -148,8 +148,12 @@ install:: $(R_MODULES_CACHE)
 	-mkdir -p -m 755 $(ROOT)/$(PKGROOT)
 	if test -z "$(R_MODULE)"; then \
 	  for module in `ls $(R_MODULES_CACHE)`; do \
+	    name=sdsc-R-$${module}; \
+	    if test "$${module}" = "modules"; then \
+	      name=sdsc-R-modules-package; \
+	    fi; \
 	    version=`module load R && export R_LIBS=$(R_MODULES_CACHE) && R -q -e "packageVersion('$${module}')" | grep ^.1 | awk -F"'" '{print $$2}'`; \
-	    $(MAKE) NAME=sdsc-R-$${module} VERSION=$${version} R_MODULE=$${module} rpm; \
+	    $(MAKE) NAME=$${name} VERSION=$${version} R_MODULE=$${module} rpm; \
 	    perl -pi -e 'print $$_ and s/$(NAME)/sdsc-R-'$${module}'/ if m/$(NAME)/' $(NODE_FILE); \
 	  done; \
 	else \
