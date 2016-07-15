@@ -15,6 +15,7 @@ acepack
 akima
 alr3
 aoos
+ape
 base64
 base64enc
 bdsmatrix
@@ -169,6 +170,7 @@ stringi
 stringr
 strucchange
 survey
+survival
 tcltk2
 TeachingDemos
 TH.data
