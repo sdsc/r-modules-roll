@@ -158,7 +158,7 @@ scatterplot3d
 # sem - unfulfilled dependency on libv8
 sgeostat
 # SimHap - removed from CRAN
-slam
+# slam - CRAN version requires R 3.3.1/CentOS 7
 sna
 snow
 sp
