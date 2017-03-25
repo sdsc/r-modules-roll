@@ -51,7 +51,7 @@ fields
 foreach
 formatR
 Formula
-# fts - Compilation w/gnu 4.9.2 fails
+fts
 futile.logger
 futile.options
 gap
@@ -97,7 +97,7 @@ matlab
 MatrixModels
 mboost
 mclust
-# MCMCpack - Compilation w/gnu 4.9.2 fails
+MCMCpack
 memoise
 mime
 minqa
@@ -107,7 +107,6 @@ mlbench
 modeltools
 modules
 multcomp
-# multicore - removed from CRAN
 munsell
 mvtnorm
 ncdf4
@@ -155,9 +154,8 @@ rworldmap
 sandwich
 scales
 scatterplot3d
-# sem - unfulfilled dependency on libv8
+sem
 sgeostat
-# SimHap - removed from CRAN
 # slam - CRAN version requires R 3.3.1/CentOS 7
 sna
 snow
