@@ -149,11 +149,14 @@ install:: $(R_MODULES_CACHE)
 	if test -z "$(R_MODULE)"; then \
 	  for module in `ls $(R_MODULES_CACHE)`; do \
 	    name=sdsc-R-$${module}; \
+	    version=`module load R && export R_LIBS=$(R_MODULES_CACHE) && R -q -e "packageVersion('$${module}')" | grep ^.1 | awk -F"'" '{print $$2}'`; \
 	    if test "$${module}" = "modules"; then \
 	      name=sdsc-R-modules-package; \
 	    fi; \
-	    version=`module load R && export R_LIBS=$(R_MODULES_CACHE) && R -q -e "packageVersion('$${module}')" | grep ^.1 | awk -F"'" '{print $$2}'`; \
 	    $(MAKE) NAME=$${name} VERSION=$${version} R_MODULE=$${module} rpm; \
+	    if test "$${module}" = "modules"; then \
+	      module=modules-package; \
+	    fi; \
 	    perl -pi -e 'print $$_ and s/$(NAME)/sdsc-R-'$${module}'/ if m/$(NAME)/' $(NODE_FILE); \
 	  done; \
 	else \
