@@ -141,20 +141,22 @@ $(R_MODULES_CACHE):
 	  exit 2; \
 	fi
 
-# Package each module and each prequisite into individual rpms, using R to
+# Package each module/prequisite built above into its own rpm, using R to
 # extract the module version number.  Also have to add each rpm name to the
-# r-modules roll node file so that Rocks will install it.
+# r-modules-roll node file so that Rocks will install it. NOTE: the rpm for the
+# R "modules" package can't be named sdsc-R-modules, since this is already used
+# by the R-roll to package its modulefile.
 install:: $(R_MODULES_CACHE)
 	-mkdir -p -m 755 $(ROOT)/$(PKGROOT)
 	if test -z "$(R_MODULE)"; then \
 	  for module in `ls $(R_MODULES_CACHE)`; do \
-	    name=sdsc-R-$${module}; \
-	    if test "$${module}" = "modules"; then \
-	      name=sdsc-R-modules-package; \
-	    fi; \
 	    version=`module load R && export R_LIBS=$(R_MODULES_CACHE) && R -q -e "packageVersion('$${module}')" | grep ^.1 | awk -F"'" '{print $$2}'`; \
-	    $(MAKE) NAME=$${name} VERSION=$${version} R_MODULE=$${module} rpm; \
-	    perl -pi -e 'print $$_ and s/$(NAME)/sdsc-R-'$${module}'/ if m/$(NAME)/' $(NODE_FILE); \
+	    rpmname=sdsc-R-$${module}; \
+	    if test "$${module}" = "modules"; then \
+	      rpmname=sdsc-R-modules-package; \
+	    fi; \
+	    $(MAKE) NAME=$${rpmname} VERSION=$${version} R_MODULE=$${module} rpm; \
+	    perl -pi -e 'print $$_ and s/$(NAME)/'$$rpmname'/ if m/$(NAME)/' $(NODE_FILE); \
 	  done; \
 	else \
 	  cp -r $(R_MODULES_CACHE)/$(R_MODULE) $(ROOT)/$(PKGROOT); \
