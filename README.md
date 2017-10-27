@@ -75,15 +75,27 @@ with the correct parameter passing convention.
 
 ## Installation
 
-To install, execute these instructions on a Rocks frontend:
+To install, first execute these instructions on a Rocks frontend:
 
 ```shell
 % rocks add roll *.iso
 % rocks enable roll r-modules
 % cd /export/rocks/install
 % rocks create distro
-% rocks run roll r-modules | bash
 ```
+
+Subsequent installs of compute and login nodes will then include the contents of
+the r-modules-roll.
+
+To avoid cluttering the cluster frontend with unused software, the r-modules-roll is
+configured to install only on compute and login nodes. To force installation on
+your frontend, run this command after adding the r-modules-roll to your distro
+
+```shell
+% rocks run roll r-modules host=NAME | bash
+```
+
+% rocks run roll r-modules | bash
 
 ## Testing
 
