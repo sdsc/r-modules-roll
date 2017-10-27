@@ -95,7 +95,8 @@ your frontend, run this command after adding the r-modules-roll to your distro
 % rocks run roll r-modules host=NAME | bash
 ```
 
-% rocks run roll r-modules | bash
+where NAME is the DNS name of a compute or login node in your cluster.
+
 
 ## Testing
 
