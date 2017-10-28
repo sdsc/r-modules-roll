@@ -130,7 +130,7 @@ quantreg
 R6
 randomForest
 raster
-rattle
+# rattle - relies on cairoDevice, which requires running X to install
 RColorBrewer
 Rcpp
 RcppArmadillo
@@ -156,7 +156,7 @@ scales
 scatterplot3d
 sem
 sgeostat
-# slam - CRAN version requires R 3.3.1/CentOS 7
+slam
 sna
 snow
 sp
