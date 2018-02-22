@@ -79,6 +79,8 @@ CRAN = https://cran.r-project.org
 NODE_FILE = $(REDHAT.ROOT)/nodes/r-modules-common.xml
 R_MODULES_CACHE = $(REDHAT.ROOT)/cache/build-r-modules
 
+MODULE_LOAD_AUTOCONF = $(call MODULE_LOAD_COMPILER, gnutools, autoconf)
+
 LICENSE_FILES = $(SOURCE_DIR)/LICENSE
 
 $(NAME).spec: DESCRIPTION LICENSE
@@ -110,6 +112,7 @@ $(R_MODULES_CACHE):
 	  $(MODULE_LOAD_MPI); \
 	  $(MODULE_LOAD_NETCDF); \
 	  $(MODULE_LOAD_R); \
+	  $(MODULE_LOAD_AUTOCONF); \
           export RMPI_TYPE=$(RMPI_TYPE); \
 	  for F in $(R_MODULES); do \
 	    stripped=`echo $$F | sed 's/:biocLite//'`; \
