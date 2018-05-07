@@ -138,7 +138,7 @@ RcppEigen
 RCurl
 reshape2
 rgenoud
-RGtk2
+# RGtk2 - config rejects gtk2 v2.24
 rjson
 rlecuyer:mpi
 rmeta
