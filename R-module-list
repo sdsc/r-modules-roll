@@ -82,7 +82,6 @@ kernlab
 knitr
 labeling
 lambda.r
-lattice
 latticeExtra
 ldlasso
 leaps
@@ -159,7 +158,6 @@ sgeostat
 slam
 sna
 snow
-sp
 spam
 SparseM
 stabs
