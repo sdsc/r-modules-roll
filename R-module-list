@@ -32,8 +32,8 @@ combinat
 coxme
 cubature
 curl
-data.table
 DatABEL
+data.table
 DBI
 DEoptimR
 devtools
@@ -48,7 +48,9 @@ epitools
 evaluate
 fda
 fields
+FNN
 foreach
+foreign
 formatR
 Formula
 fts
@@ -65,6 +67,7 @@ ggplot2
 git2r
 gplots
 gridExtra
+gstat
 gtable
 gtools
 GWAF
@@ -75,6 +78,7 @@ Hmisc
 httr
 hwriter
 ineq
+intervals
 iterators
 jpeg
 jsonlite
@@ -112,8 +116,8 @@ ncdf4
 network
 nlme
 nloptr
-numDeriv
 nnls
+numDeriv
 nws
 openssl
 oz
@@ -155,9 +159,11 @@ scales
 scatterplot3d
 sem
 sgeostat
+shapefiles
 slam
 sna
 snow
+spacetime
 spam
 SparseM
 stabs
@@ -178,8 +184,9 @@ urca
 VGAM
 whisker
 withr
-xtable
 XML
+xtable
+xts
 yaml
 zoo
 # Dependencies on above packages dictate that these be listed last.
