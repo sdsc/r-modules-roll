@@ -32,7 +32,7 @@ combinat
 coxme
 cubature
 curl
-DatABEL
+#DatABEL
 data.table
 DBI
 DEoptimR
@@ -60,8 +60,8 @@ gap
 gdata
 gee
 geepack
-GenABEL
-GenABEL.data
+#GenABEL
+#GenABEL.data
 genetics
 ggplot2
 git2r
@@ -87,7 +87,7 @@ knitr
 labeling
 lambda.r
 latticeExtra
-ldlasso
+#ldlasso
 leaps
 lme4
 locfit
