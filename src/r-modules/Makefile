@@ -114,11 +114,12 @@ $(R_MODULES_CACHE):
 	  $(MODULE_LOAD_R); \
 	  $(MODULE_LOAD_AUTOCONF); \
           export RMPI_TYPE=$(RMPI_TYPE); \
+          Rscript --verbose install_package.R $(CRAN) $(PKGROOT) BiocManager; \
 	  for F in $(R_MODULES); do \
 	    stripped=`echo $$F | sed 's/:biocLite//'`; \
             echo "Building $${F}" ; \
 	    if test "$${stripped}" != "$$F"; then \
-	      R --verbose -e "source('$(BIOCLITE)'); biocLite(); biocLite('$${stripped}');"; \
+              R --verbose -e "BiocManager::install(c('$${stripped}'));"; \
 	      continue; \
 	    fi; \
 	    config="CXXFLAGS=-std=c++11"; \
