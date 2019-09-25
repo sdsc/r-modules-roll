@@ -36,7 +36,7 @@ cubature
 data.table
 DBI
 DEoptimR
-#devtools
+devtools
 dichromat
 digest
 doMC
@@ -75,7 +75,7 @@ haplo.stats
 hexbin
 highr
 Hmisc
-#httr
+httr
 hwriter
 ineq
 intervals
