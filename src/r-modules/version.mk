@@ -9,8 +9,8 @@ endif
 MPINAME := $(firstword $(subst /, ,$(ROLLMPI)))
 
 NAME       = sdsc-R-module-collection
-VERSION    = 2
-RELEASE    = 12
+VERSION    = 3
+RELEASE    = 0
 PKGROOT    = /opt/R/local/lib
 
 RPM.EXTRAS = AutoReq:No
